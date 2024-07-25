@@ -22,9 +22,14 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,6 +52,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UnitConverter() {
+
+    var inputValue by remember { mutableStateOf("") }
+    var outputValue by remember { mutableStateOf("") }
+    var inputUnit by remember { mutableStateOf("") }
+    var outputUnit by remember { mutableStateOf("") }
+    var iExpanded by remember { mutableStateOf(false) }
+    var oExpanded by remember { mutableStateOf(false) }
+    val conversionFactor = remember { mutableStateOf(0.01) }
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -54,49 +69,57 @@ fun UnitConverter() {
     ) {
         Text("Unit Converter")
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(value = "", onValueChange = {
+        OutlinedTextField(value = inputValue, onValueChange = {
+            inputValue = it
 
-        })
+        }, colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = Color.Red
+        ), label = { Text(text = "Enter Value") })
         Spacer(modifier = Modifier.height(16.dp))
         Row {
+            // Input Box
             Box {
-                Button(onClick = { /*TODO*/ }) {
+                // Input Button
+                Button(onClick = { iExpanded=true }) {
                     Text("Select")
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "Arrow Down")
                 }
-                DropdownMenu(expanded = false, onDismissRequest = { /*TODO*/ }) {
+                DropdownMenu(expanded = iExpanded, onDismissRequest = { /*TODO*/ }) {
                     DropdownMenuItem(
-                        text = { Text(text = "Centimeters")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Centimeters") }, onClick = { /*TODO*/ }
                     )
                     DropdownMenuItem(
-                        text = { Text(text = "Meters")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Meters") }, onClick = { /*TODO*/ }
                     )
                     DropdownMenuItem(
-                        text = { Text(text = "Feet")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Feet") }, onClick = { /*TODO*/ }
                     )
                     DropdownMenuItem(
-                        text = { Text(text = "Millimeters")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Millimeters") }, onClick = { /*TODO*/ }
                     )
                 }
             }
             Spacer(modifier = Modifier.width(16.dp))
+
+            // Output Box
             Box {
+                // Output Button
                 Button(onClick = { /*TODO*/ }) {
                     Text("Select")
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "")
                 }
-                DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
+                DropdownMenu(expanded = false, onDismissRequest = { /*TODO*/ }) {
                     DropdownMenuItem(
-                        text = { Text(text = "Centimeters")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Centimeters") }, onClick = { /*TODO*/ }
                     )
                     DropdownMenuItem(
-                        text = { Text(text = "Meters")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Meters") }, onClick = { /*TODO*/ }
                     )
                     DropdownMenuItem(
-                        text = { Text(text = "Feet")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Feet") }, onClick = { /*TODO*/ }
                     )
                     DropdownMenuItem(
-                        text = { Text(text = "Millimeters")}, onClick = { /*TODO*/ }
+                        text = { Text(text = "Millimeters") }, onClick = { /*TODO*/ }
                     )
                 }
             }
